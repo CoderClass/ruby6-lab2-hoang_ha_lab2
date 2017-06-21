@@ -16,26 +16,33 @@
     <div class="collapse navbar-toggleable-xs" id="nav-content">
       <a class="navbar-brand" href="/"><%= image_tag 'logo-small.png' %></a>
       <ul class="nav navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Sign Up</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Sign In</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="<%= users_path %>">Browse Profiles</a>
-        </li>
+        <% if !signed_in? %>
+          <li class="nav-item">
+            <%= link_to "Sign Up", new_user_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign In", new_session_path, class: "nav-link" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <a class="nav-link" href="<%= users_path %>">Browse Profiles</a>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Logout", logout_path, class: "nav-link", method: :delete %>
+          </li>
+        <% end %>
       </ul>
     </div>
   </nav>
 
+  <%= flash_messages %>
   <%= yield %>
 
   <footer class="footer-12">
     <div class="container">
         Made with <%= image_tag('heart') %> in Sai Gon
     </div>
-  </footer>    
+  </footer>
 
 </body>
 </html>
